@@ -28,34 +28,22 @@ class _GridState extends State<Grid> {
     onTap: () {
     setState(() {
     currentIndex=index;
-    // if(currentIndex==index){
-    // color=Colors.black;
-    // }
-    // else{
-    // color=Colors.orange;
-    // }
+
     });
 
 
     },
             // InkWell(
-//             onTap: () {
-//               setState(() {
-// currentIndex=index;
-//               if(currentIndex==index){
-//                 color=Colors.black;
-//               }
-//               else{
-//                 color=Colors.orange;
-//               }
-//               });
-//
-//
-//             },
+
         child:
             _buildGrid(contentsa[index],
                 currentIndex==index?Colors.black:Colors.black12,
-                currentIndex==index?Icon(Icons.gpp_good_sharp):Container()),
+                currentIndex==index?Container(
+                    width: 25,
+                    height: 25,
+                    decoration:BoxDecoration(color: Colors.black,
+                      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15),),),
+                    child: Icon(Icons.done,color: Colors.white,size: 15,)):Container()),
 
       // ),
         )
@@ -64,10 +52,11 @@ class _GridState extends State<Grid> {
     );
   }
 
-  Widget _buildGrid(Contents cont,Color color,Widget icon) =>
+  Widget _buildGrid(Contents cont,Color color,Widget icon,) =>
 
 
   Container(
+    clipBehavior: Clip.antiAlias,
     alignment: Alignment.center,
     width: 145,
     height: 140,
@@ -85,21 +74,30 @@ class _GridState extends State<Grid> {
             bottomLeft: Radius.circular(10)),
     ),
     child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Icon(Icons.gpp_good,),
+        child: Stack(
+          fit: StackFit.expand,
 
-            Image(
-              image: AssetImage(cont.image),
+          children: [
+            Align(alignment: Alignment.topRight,
+
+                    child: icon),
+            Column(
+               mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+
+
+                Image(
+                  image: AssetImage(cont.image),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  cont.text,
+                  style: TextStyle(fontSize: 24),
+                )
+              ],
             ),
-            SizedBox(
-              height: 15,
-            ),
-            Text(
-              cont.text,
-              style: TextStyle(fontSize: 24),
-            )
           ],
         ),
     ),
